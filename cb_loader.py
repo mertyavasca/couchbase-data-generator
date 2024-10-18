@@ -7,7 +7,6 @@ from couchbase.exceptions import CouchbaseException, DocumentExistsException
 from data_generator import generate_random_data
 import random
 
-# Logging ayarları
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class CouchbaseConnector:
@@ -47,7 +46,6 @@ def main():
     
     args = parser.parse_args()
 
-    # Giriş parametrelerini ekrana yazdır
     logging.info(f"Starting insertion with the following parameters: Host={args.host}, Username={args.username}, Password={'*' * len(args.password)}, Bucket={args.bucket}, Records to insert={args.records}, Number of threads={args.threads}")
 
     connector = CouchbaseConnector(args.host, args.username, args.password, args.bucket)
