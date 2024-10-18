@@ -49,7 +49,7 @@ def generate_random_data():
             "delivery": {
                 "deliveryOption": random.choice(delivery_options),
                 "deliveryStatus": random.choice(order_status),
-                "deliveryDate": int((time.time() + random.randint(1, 10) * 86400) * 1000),  # Delivery date 1-10 days from now
+                "deliveryDate": int((time.time() + random.randint(1, 10) * 86400) * 1000),
                 "trackingId": fake.uuid4()
             },
             "totalAmount": {
