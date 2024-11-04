@@ -4,57 +4,33 @@ from faker import Faker
 
 fake = Faker()
 
-def generate_random_data():
-    product_types = ["ELECTRONICS", "FURNITURE", "CLOTHING", "FOOD", "TOYS"]
-    payment_methods = ["CREDIT_CARD", "PAYPAL", "CRYPTO", "BANK_TRANSFER", "CASH"]
-    order_status = ["PENDING", "SHIPPED", "DELIVERED", "CANCELLED", "RETURNED"]
-    delivery_options = ["STANDARD", "EXPRESS", "SAME_DAY"]
-    
+def generate_random_bank_data():
+    transaction_types = ["DEPOSIT", "WITHDRAWAL", "TRANSFER", "LOAN_PAYMENT"]
+    account_types = ["SAVINGS", "CHECKING", "CREDIT_CARD", "LOAN"]
+    currencies = ["USD", "EUR", "GBP", "JPY", "TRY"]
+
     data = {
-        "order": {
-            "_class": "com.example.ecommerce.Order",
-            "orderId": fake.uuid4(),
-            "orderDate": int(time.time() * 1000),
+        "transaction": {
+            "_class": "com.example.bank.Transaction",
+            "transactionId": fake.uuid4(),
+            "transactionDate": int(time.time() * 1000),
             "customer": {
                 "customerId": random.randint(1000, 9999),
                 "name": fake.name(),
                 "email": fake.email(),
                 "phone": fake.phone_number(),
-                "address": {
-                    "street": fake.street_address(),
-                    "city": fake.city(),
-                    "state": fake.state(),
-                    "postalCode": fake.postcode(),
-                    "country": fake.country()
-                }
             },
-            "items": [
-                {
-                    "productId": random.randint(10000, 99999),
-                    "productName": fake.word().capitalize(),
-                    "productType": random.choice(product_types),
-                    "quantity": random.randint(1, 5),
-                    "price": {
-                        "amount": round(random.uniform(5.99, 999.99), 2),
-                        "currency": "USD"
-                    }
-                }
-                for _ in range(random.randint(1, 5))
-            ],
-            "payment": {
-                "paymentMethod": random.choice(payment_methods),
-                "paymentStatus": random.choice(order_status),
-                "transactionId": fake.uuid4()
+            "account": {
+                "accountId": random.randint(100000, 999999),
+                "accountType": random.choice(account_types),
+                "currency": random.choice(currencies),
+                "balance": round(random.uniform(100, 10000), 2)
             },
-            "delivery": {
-                "deliveryOption": random.choice(delivery_options),
-                "deliveryStatus": random.choice(order_status),
-                "deliveryDate": int((time.time() + random.randint(1, 10) * 86400) * 1000),
-                "trackingId": fake.uuid4()
-            },
-            "totalAmount": {
-                "amount": round(random.uniform(50, 1500), 2),
-                "currency": "USD"
+            "transactionDetails": {
+                "transactionType": random.choice(transaction_types),
+                "amount": round(random.uniform(10, 1000), 2),
+                "currency": random.choice(currencies),
+                "status": random.choice(["PENDING", "COMPLETED", "FAILED"]),
             }
         }
     }
